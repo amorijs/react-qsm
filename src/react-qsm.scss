@@ -1,0 +1,49 @@
+#root {
+  width: 400px;
+}
+
+.react-qsm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #202032;
+  border-color: #29273f;
+  border-radius: 2.5px;
+  padding: 5px;
+
+  .qsm-input {
+    background-color: #655e5e;
+    border-color: #d8d8d8;
+    color: #eaeaea;
+    border: 1.3px solid #7d7d7d;
+    border-radius: 1.5px;
+    margin-bottom: 5px;
+    padding: 5px;
+
+    :focus {
+      outline: none;
+    }
+  }
+
+  .qsm-menu-item-list {
+    padding: 0;
+  }
+
+  .qsm-menu-item {
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: #202032;
+    color: #dddddd;
+
+    &:hover {
+      background-color: #3a3838;
+    }
+
+    &:active, &.active {
+      background-color: #655e5e;
+      color: #eaeaea;
+    }
+  }
+}

@@ -5,7 +5,8 @@ class MenuItem extends Component {
   static propTypes = { value: PropTypes.string.isRequired };
 
   render() {
-    return <li>{this.props.value}</li>;
+    const { className, value } = this.props;
+    return <li className={`qsm-menu-item ${className}`}>{value}</li>;
   }
 }
 
