@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MenuItem from '../components/MenuItem';
+import MenuItem from '../components/MenuItem.jsx';
 
 const KEYS = {
   UP: 'ArrowUp',
   DOWN: 'ArrowDown',
-  LEFT: 'ArrowLeft',
-  RIGHT: 'ArrowRight',
   ENTER: 'Enter'
 };
 
