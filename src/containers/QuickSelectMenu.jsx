@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from '../components/MenuItem.jsx';
+import Fuse from 'fuse.js';
 
 const KEYS = {
   UP: 'ArrowUp',
@@ -19,7 +20,23 @@ class QuickSelectMenu extends Component {
     activeItemIndex: 0
   };
 
+  handleInputChange = event => {
+    const { value } = event.target;
+    this.filterItems(value);
+  };
+
+  handleKeyDown = event => {
+    const { key } = event;
+    const { UP, DOWN, LEFT, RIGHT, ENTER } = KEYS;
+
+    if (key === UP) this.moveUp();
+    if (key === DOWN) this.moveDown();
+    if (key === ENTER) this.selectItem(this.state.activeItemIndex);
+  };
+
   setActiveItem = index => {
+    if (this.state.filteredItems.length === 0) return;
+
     const { filteredItems } = this.state;
 
     if (index >= filteredItems.length) {
@@ -35,16 +52,22 @@ class QuickSelectMenu extends Component {
     this.props.onMenuItemSelect(filteredItems[activeItemIndex]);
   };
 
-  handleKeyDown = event => {
-    event.preventDefault();
-    event.stopPropagation();
+  filterItems = value => {
+    if (typeof value !== 'string') {
+      throw new TypeError('Argument value must be of type string.');
+    }
 
-    const { key } = event;
-    const { UP, DOWN, LEFT, RIGHT, ENTER } = KEYS;
+    const { menuItems } = this.props;
+    if (value.length === 0) return this.setState({ filteredItems: menuItems });
 
-    if (key === UP) this.moveUp();
-    if (key === DOWN) this.moveDown();
-    if (key === ENTER) this.selectItem(this.state.activeItemIndex);
+    const options = {
+      shouldSort: true,
+      threshold: 0.4,
+      keys: ['value']
+    };
+
+    const fuse = new Fuse(menuItems, options);
+    this.setState({ filteredItems: fuse.search(value), activeItemIndex: 0 });
   };
 
   moveUp = () => {
@@ -74,7 +97,11 @@ class QuickSelectMenu extends Component {
 
     return (
       <div onClick={this.click} className="react-qsm">
-        <input onKeyDown={this.handleKeyDown} className="qsm-input" />
+        <input
+          onChange={this.handleInputChange}
+          onKeyDown={this.handleKeyDown}
+          className="qsm-input"
+        />
         <ul className="qsm-menu-item-list">{items}</ul>
       </div>
     );
