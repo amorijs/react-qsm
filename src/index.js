@@ -5,12 +5,15 @@ import './react-qsm.scss';
 
 const sections = [
   {
-    label: 'ello govana',
-    items: [{ label: 'Hello!' }, { label: '123' }]
+    label: 'recently used',
+    items: [{ label: 'Preferences: Open User Settings' }, { label: 'Sync: Upload Settings' }]
   },
   {
-    label: 'goodebye mayor',
-    items: [{ label: 'an item in other section' }, { label: 'anotha 1' }]
+    label: 'other commands',
+    items: [{ label: 'Add Cursor Above' }, { label: 'Add Cursor Below' }]
+  },
+  {
+    items: [{ label: 'Item in an unnamed section' }]
   }
 ];
 
