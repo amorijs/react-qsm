@@ -61,11 +61,11 @@ class QuickSelectMenu extends Component {
   };
 
   removeFilters = () => {
-    const { sections } = this.props;
+    const { menuSections } = this.props;
 
     this.setState({
-      filteredSections: sections,
-      filteredItemsList: this.getFilteredItemsList(sections)
+      filteredSections: menuSections,
+      filteredItemsList: this.getFilteredItemsList(menuSections)
     });
   };
 
@@ -75,17 +75,18 @@ class QuickSelectMenu extends Component {
     }
 
     const { menuSections } = this.props;
-    if (value.length === 0) return this.removeFilters();
+    if (!value || value.length === 0) return this.removeFilters();
 
     const options = {
       shouldSort: true,
       threshold: 0.4,
-      keys: ['value']
+      keys: ['label']
     };
 
     const filteredSections = this.props.menuSections.reduce((acc, section) => {
       const fuse = new Fuse(section.items, options);
-      return { ...section, items: fuse.search(value) };
+      acc.push({ ...section, items: fuse.search(value) });
+      return acc;
     }, []);
 
     const filteredItemsList = this.getFilteredItemsList(filteredSections);
