@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from '../components/MenuItem.jsx';
 import Fuse from 'fuse.js';
+import MenuSection from '../components/MenuSection.jsx';
 
 const KEYS = {
   UP: 'ArrowUp',
@@ -11,18 +12,26 @@ const KEYS = {
 
 class QuickSelectMenu extends Component {
   static propTypes = {
-    menuItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    menuSections: PropTypes.arrayOf(PropTypes.object).isRequired,
     onMenuItemSelect: PropTypes.func.isRequired
   };
 
-  state = {
-    filteredItems: this.props.menuItems.slice(0),
-    activeItemIndex: 0
-  };
+  constructor(props) {
+    super(props);
+    const { menuSections } = this.props;
+    const filteredItemsList = this.getFilteredItemsList(menuSections);
+    this.state = { filteredItemsList, filteredSections: menuSections, activeItemIndex: 0 };
+  }
+
+  getFilteredItemsList = sections =>
+    sections.reduce((acc, { items }) => {
+      acc.push(...items);
+      return acc;
+    }, []);
 
   handleInputChange = event => {
     const { value } = event.target;
-    this.filterItems(value);
+    this.filterSections(value);
   };
 
   handleKeyDown = event => {
@@ -35,11 +44,10 @@ class QuickSelectMenu extends Component {
   };
 
   setActiveItem = index => {
-    if (this.state.filteredItems.length === 0) return;
+    const { filteredItemsList } = this.state;
+    if (filteredItemsList.length === 0) return;
 
-    const { filteredItems } = this.state;
-
-    if (index >= filteredItems.length) {
+    if (index >= filteredItemsList.length) {
       throw new Error(`Cannot set active item of index: ${index}. Index is too large`);
     }
 
@@ -48,17 +56,26 @@ class QuickSelectMenu extends Component {
 
   selectItem = async index => {
     if (index !== this.state.activeItemIndex) await this.setActiveItem(index).catch(console.error);
-    const { filteredItems, activeItemIndex } = this.state;
-    this.props.onMenuItemSelect(filteredItems[activeItemIndex]);
+    const { filteredItemsList, activeItemIndex } = this.state;
+    this.props.onMenuItemSelect(filteredItemsList[activeItemIndex]);
   };
 
-  filterItems = value => {
+  removeFilters = () => {
+    const { sections } = this.props;
+
+    this.setState({
+      filteredSections: sections,
+      filteredItemsList: this.getFilteredItemsList(sections)
+    });
+  };
+
+  filterSections = value => {
     if (typeof value !== 'string') {
       throw new TypeError('Argument value must be of type string.');
     }
 
-    const { menuItems } = this.props;
-    if (value.length === 0) return this.setState({ filteredItems: menuItems });
+    const { menuSections } = this.props;
+    if (value.length === 0) return this.removeFilters();
 
     const options = {
       shouldSort: true,
@@ -66,32 +83,54 @@ class QuickSelectMenu extends Component {
       keys: ['value']
     };
 
-    const fuse = new Fuse(menuItems, options);
-    this.setState({ filteredItems: fuse.search(value), activeItemIndex: 0 });
+    const filteredSections = this.props.menuSections.reduce((acc, section) => {
+      const fuse = new Fuse(section.items, options);
+      return { ...section, items: fuse.search(value) };
+    }, []);
+
+    const filteredItemsList = this.getFilteredItemsList(filteredSections);
+    this.setState({ filteredSections, filteredItemsList });
   };
 
   moveUp = () => {
-    const { filteredItems, activeItemIndex } = this.state;
-    const nextIndex = activeItemIndex === 0 ? filteredItems.length - 1 : activeItemIndex - 1;
+    const { filteredItemsList, activeItemIndex } = this.state;
+    const nextIndex = activeItemIndex === 0 ? filteredItemsList.length - 1 : activeItemIndex - 1;
     this.setActiveItem(nextIndex);
   };
 
   moveDown = () => {
-    const { filteredItems, activeItemIndex } = this.state;
-    const nextIndex = activeItemIndex === filteredItems.length - 1 ? 0 : activeItemIndex + 1;
+    const { filteredItemsList, activeItemIndex } = this.state;
+    const nextIndex = activeItemIndex === filteredItemsList.length - 1 ? 0 : activeItemIndex + 1;
     this.setActiveItem(nextIndex);
   };
 
   render() {
-    const { filteredItems, activeItemIndex } = this.state;
-    const { menuItems, onMenuItemSelect } = this.props;
+    // active === 1
+    const { filteredSections, activeItemIndex } = this.state;
+    const { onMenuItemSelect } = this.props;
 
-    const items = filteredItems.map((item, i) => {
-      const className = i === activeItemIndex ? 'active' : '';
-      const { value } = item;
+    let itemsCounted = 0;
+    let activeSectionIndex = 0;
+
+    for (let i = 0; i < filteredSections.length; i += 1) {
+      itemsCounted += filteredSections[i].items.length;
+      if (itemsCounted > activeItemIndex) break;
+      activeSectionIndex += 1;
+    }
+
+    const sections = filteredSections.map((section, i) => {
+      const { label, items } = section;
+
+      const activeIndex =
+        activeSectionIndex === i ? activeItemIndex - (itemsCounted - items.length) : null;
 
       return (
-        <MenuItem key={value} className={className} value={value} onSelect={onMenuItemSelect} />
+        <MenuSection
+          key={section.label}
+          activeIndex={activeIndex}
+          items={section.items}
+          label={section.label}
+        />
       );
     });
 
@@ -102,7 +141,7 @@ class QuickSelectMenu extends Component {
           onKeyDown={this.handleKeyDown}
           className="qsm-input"
         />
-        <ul className="qsm-menu-item-list">{items}</ul>
+        <div className="qsm-menu-sections-wrapper">{sections}</div>
       </div>
     );
   }

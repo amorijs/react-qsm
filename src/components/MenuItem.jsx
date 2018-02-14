@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class MenuItem extends Component {
-  static propTypes = { value: PropTypes.string.isRequired };
+  static propTypes = { label: PropTypes.string.isRequired, className: PropTypes.string };
 
   render() {
-    const { className, value } = this.props;
-    return <li className={`qsm-menu-item ${className}`}>{value}</li>;
+    const { className, label, children } = this.props;
+    return (
+      <li className={`qsm-menu-item ${className}`}>
+        {label}
+        {children}
+      </li>
+    );
   }
 }
 
