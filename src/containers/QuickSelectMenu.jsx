@@ -106,7 +106,6 @@ class QuickSelectMenu extends Component {
   };
 
   render() {
-    // active === 1
     const { filteredSections, activeItemIndex } = this.state;
     const { onMenuItemSelect } = this.props;
 
@@ -121,6 +120,7 @@ class QuickSelectMenu extends Component {
 
     const sections = filteredSections.map((section, i) => {
       const { label, items } = section;
+      if (items.length === 0) return;
 
       const activeIndex =
         activeSectionIndex === i ? activeItemIndex - (itemsCounted - items.length) : null;
