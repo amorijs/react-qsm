@@ -13,21 +13,47 @@ const KEYS = {
 class QuickSelectMenu extends Component {
   static propTypes = {
     menuSections: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onMenuItemSelect: PropTypes.func.isRequired
+    onMenuItemSelect: PropTypes.func.isRequired,
+    defaultValue: PropTypes.string
+  };
+
+  static defaultProps = {
+    defaultValue: ''
   };
 
   constructor(props) {
     super(props);
     const { menuSections } = this.props;
-    const filteredItemsList = this.getFilteredItemsList(menuSections);
-    this.state = { filteredItemsList, filteredSections: menuSections, activeItemIndex: 0 };
+
+    const filteredItemsList = this.createFilteredItemsList(menuSections);
+    const sectionsByPrefix = this.createSectionsByPrefix(menuSections);
+    const filteredSections = sectionsByPrefix[''] ? sectionsByPrefix[''] : menuSections;
+
+    this.state = {
+      filteredSections,
+      filteredItemsList,
+      sectionsByPrefix,
+      activeItemIndex: 0
+    };
   }
 
-  getFilteredItemsList = sections =>
+  componentDidMount() {
+    this.filterSections(this.props.defaultValue);
+  }
+
+  createFilteredItemsList = sections =>
     sections.reduce((acc, { items }) => {
       acc.push(...items);
       return acc;
     }, []);
+
+  createSectionsByPrefix = sections =>
+    sections.reduce((acc, section) => {
+      const { prefix = '' } = section;
+      if (acc[prefix]) acc[prefix].push(section);
+      else acc[prefix] = [section];
+      return acc;
+    }, {});
 
   handleInputChange = event => {
     const { value } = event.target;
@@ -41,6 +67,16 @@ class QuickSelectMenu extends Component {
     if (key === UP) this.moveUp();
     if (key === DOWN) this.moveDown();
     if (key === ENTER) this.selectItem(this.state.activeItemIndex);
+  };
+
+  setFilteredSections = sections => {
+    if (!Array.isArray(sections)) {
+      throw new TypeError(`Invalid argument 'sections'. Must be of type array`);
+    }
+    this.setState({
+      filteredSections: sections,
+      filteredItemsList: this.createFilteredItemsList(sections)
+    });
   };
 
   setActiveItem = index => {
@@ -60,22 +96,24 @@ class QuickSelectMenu extends Component {
     this.props.onMenuItemSelect(filteredItemsList[activeItemIndex]);
   };
 
-  removeFilters = () => {
-    const { menuSections } = this.props;
-
-    this.setState({
-      filteredSections: menuSections,
-      filteredItemsList: this.getFilteredItemsList(menuSections)
-    });
-  };
-
   filterSections = value => {
     if (typeof value !== 'string') {
-      throw new TypeError('Argument value must be of type string.');
+      throw new TypeError(`Invalid argument 'value'. Must be of type string.`);
     }
 
     const { menuSections } = this.props;
-    if (!value || value.length === 0) return this.removeFilters();
+    const { sectionsByPrefix } = this.state;
+
+    if (value === '') {
+      const filteredSections = sectionsByPrefix[''] ? sectionsByPrefix[''] : menuSections;
+      return this.setFilteredSections(filteredSections);
+    }
+
+    const prefix = Object.keys(sectionsByPrefix).find(
+      prefix => prefix !== '' && prefix === value.slice(0, prefix.length)
+    );
+
+    const prefixFilteredMenuSections = prefix ? sectionsByPrefix[prefix] : menuSections;
 
     const options = {
       shouldSort: true,
@@ -83,14 +121,30 @@ class QuickSelectMenu extends Component {
       keys: ['label']
     };
 
-    const filteredSections = this.props.menuSections.reduce((acc, section) => {
-      const fuse = new Fuse(section.items, options);
-      acc.push({ ...section, items: fuse.search(value) });
+    const filteredSections = prefixFilteredMenuSections.reduce((acc, section) => {
+      const prefixTrimmedValue = prefix ? value.slice(prefix.length) : value;
+
+      let items = section.items;
+
+      if (prefixTrimmedValue.length > 0) {
+        const fuse = new Fuse(section.items, options);
+        items = fuse.search(prefixTrimmedValue);
+      }
+
+      acc.push({ ...section, items });
       return acc;
     }, []);
 
-    const filteredItemsList = this.getFilteredItemsList(filteredSections);
-    this.setState({ filteredSections, filteredItemsList });
+    this.setFilteredSections(filteredSections);
+  };
+
+  removeFilters = () => {
+    const { menuSections } = this.props;
+
+    this.setState({
+      filteredSections: menuSections,
+      filteredItemsList: this.createFilteredItemsList(menuSections)
+    });
   };
 
   moveUp = () => {
@@ -107,7 +161,7 @@ class QuickSelectMenu extends Component {
 
   render() {
     const { filteredSections, activeItemIndex } = this.state;
-    const { onMenuItemSelect } = this.props;
+    const { onMenuItemSelect, defaultValue } = this.props;
 
     let itemsCounted = 0;
     let activeSectionIndex = 0;
@@ -127,7 +181,7 @@ class QuickSelectMenu extends Component {
 
       return (
         <MenuSection
-          key={section.label}
+          key={section.label || i}
           activeIndex={activeIndex}
           items={section.items}
           label={section.label}
@@ -138,6 +192,7 @@ class QuickSelectMenu extends Component {
     return (
       <div onClick={this.click} className="react-qsm">
         <input
+          defaultValue={defaultValue}
           onChange={this.handleInputChange}
           onKeyDown={this.handleKeyDown}
           className="qsm-input"

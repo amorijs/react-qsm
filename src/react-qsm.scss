@@ -1,7 +1,7 @@
 @import url("http://fonts.googleapis.com/css?family=Droid+Sans");
 
 * {
-  font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+  font-family: 'Droid Sans', Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -42,9 +42,11 @@
 
     .qsm-menu-section-label {
       font-size: 14px;
+      font-weight: lighter;
       margin-top: -2px;
       margin-left: auto;
       color: #d3d3d38f;
+      opacity: 0.9;
     }
 
     &:last-child {
@@ -63,7 +65,8 @@
       background-color: #3a3838;
     }
 
-    &:active, &.active {
+    &:active,
+    &.active {
       background-color: #655e5e;
       color: #eaeaea;
     }
