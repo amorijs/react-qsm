@@ -95,7 +95,6 @@ class QuickSelectMenu extends Component {
 
   setActiveItemByIndex = index => {
     const { filteredItemsList } = this.state;
-    if (filteredItemsList.length === 0) return;
 
     if (index >= filteredItemsList.length) {
       throw new Error(`Cannot set active item of index: ${index}. Index is too large`);
@@ -105,7 +104,13 @@ class QuickSelectMenu extends Component {
   };
 
   selectItemByIndex = async index => {
-    if (index !== this.state.activeItemIndex) {
+    const { filteredItemsList, activeItemIndex } = this.state;
+
+    if (index >= filteredItemsList.length) {
+      throw new Error(`Cannot set active item of index: ${index}. Index is too large`);
+    }
+
+    if (index !== activeItemIndex) {
       await this.setActiveItemByIndex(index).catch(console.error);
     }
 
