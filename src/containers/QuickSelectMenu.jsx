@@ -66,7 +66,18 @@ class QuickSelectMenu extends Component {
 
     if (key === UP) this.moveUp();
     if (key === DOWN) this.moveDown();
-    if (key === ENTER) this.selectItem(this.state.activeItemIndex);
+    if (key === ENTER) this.selectItemByIndex(this.state.activeItemIndex);
+  };
+
+  getItemIndex = item => {
+    const { filteredItemsList } = this.state;
+    const indexOfItem = filteredItemsList.indexOf(item);
+
+    if (indexOfItem === -1) {
+      throw new Error('Cannot set active item. Item does not exist in state.filteredItemsList');
+    }
+
+    return indexOfItem;
   };
 
   setFilteredSections = sections => {
@@ -79,7 +90,10 @@ class QuickSelectMenu extends Component {
     });
   };
 
-  setActiveItem = index => {
+  setActiveItem = item => this.setActiveItemByIndex(this.getItemIndex(item));
+  selectItem = item => this.selectItemByIndex(this.getItemIndex(item));
+
+  setActiveItemByIndex = index => {
     const { filteredItemsList } = this.state;
     if (filteredItemsList.length === 0) return;
 
@@ -90,8 +104,11 @@ class QuickSelectMenu extends Component {
     return new Promise(resolve => this.setState({ activeItemIndex: index }, resolve));
   };
 
-  selectItem = async index => {
-    if (index !== this.state.activeItemIndex) await this.setActiveItem(index).catch(console.error);
+  selectItemByIndex = async index => {
+    if (index !== this.state.activeItemIndex) {
+      await this.setActiveItemByIndex(index).catch(console.error);
+    }
+
     const { filteredItemsList, activeItemIndex } = this.state;
     this.props.onMenuItemSelect(filteredItemsList[activeItemIndex]);
   };
@@ -150,13 +167,13 @@ class QuickSelectMenu extends Component {
   moveUp = () => {
     const { filteredItemsList, activeItemIndex } = this.state;
     const nextIndex = activeItemIndex === 0 ? filteredItemsList.length - 1 : activeItemIndex - 1;
-    this.setActiveItem(nextIndex);
+    this.setActiveItemByIndex(nextIndex);
   };
 
   moveDown = () => {
     const { filteredItemsList, activeItemIndex } = this.state;
     const nextIndex = activeItemIndex === filteredItemsList.length - 1 ? 0 : activeItemIndex + 1;
-    this.setActiveItem(nextIndex);
+    this.setActiveItemByIndex(nextIndex);
   };
 
   render() {
@@ -185,6 +202,7 @@ class QuickSelectMenu extends Component {
           activeIndex={activeIndex}
           items={section.items}
           label={section.label}
+          handleItemClick={this.selectItem}
         />
       );
     });

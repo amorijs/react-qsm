@@ -10,10 +10,15 @@ class MenuSection extends Component {
   };
 
   render() {
-    const { items, activeIndex, label } = this.props;
+    const { items, activeIndex, label, handleItemClick } = this.props;
 
     const menuItems = items.map((item, i) => (
-      <MenuItem key={item.label} className={i === activeIndex ? 'active' : null} label={item.label}>
+      <MenuItem
+        onClick={() => handleItemClick(item)}
+        key={item.label}
+        className={i === activeIndex ? 'active' : null}
+        label={item.label}
+      >
         {i === 0 && <h2 className="qsm-menu-section-label">{label}</h2>}
       </MenuItem>
     ));
