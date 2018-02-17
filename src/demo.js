@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import QuickSelectMenu from './containers/QuickSelectMenu.jsx';
-import './react-qsm.scss';
 
 const sections = [
   {
@@ -20,13 +19,15 @@ const sections = [
     items: [{ label: 'Add Cursor Above' }, { label: 'Add Cursor Below' }]
   },
   {
-    items: [{ label: 'Item in an unnamed section' }]
+    prefix: '?',
+    label: 'help',
+    items: [{ label: '... Go to file' }, { label: '# Go to symbol in workspace' }]
   }
 ];
 
 const onMenuItemSelect = item => alert(item.label);
 
 ReactDOM.render(
-  <QuickSelectMenu onMenuItemSelect={onMenuItemSelect} menuSections={sections} />,
+  <QuickSelectMenu defaultValue=">" onMenuItemSelect={onMenuItemSelect} menuSections={sections} />,
   document.getElementById('root')
 );

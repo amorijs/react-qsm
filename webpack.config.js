@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: ['babel-polyfill', './src/demo.js'],
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
@@ -19,13 +19,6 @@ module.exports = {
       }
     ]
   },
-
-  // Dev tools are provided by webpack
-  // Source maps help map errors to original react code
   devtool: 'cheap-module-eval-source-map',
-
-  // Configuration for webpack-dev-server
-  devServer: {
-    contentBase: path.join(__dirname, 'public')
-  }
+  devServer: { contentBase: path.join(__dirname, 'public') }
 };

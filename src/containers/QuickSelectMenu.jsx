@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MenuItem from '../components/MenuItem.jsx';
 import Fuse from 'fuse.js';
 import MenuSection from '../components/MenuSection.jsx';
+import '../react-qsm.scss';
 
 const KEYS = {
   UP: 'ArrowUp',
