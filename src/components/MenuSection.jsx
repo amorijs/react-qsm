@@ -18,13 +18,12 @@ class MenuSection extends Component {
         key={item.label}
         className={i === activeIndex ? 'active' : null}
         label={item.label}
-      >
-        {i === 0 && <h2 className="qsm-menu-section-label">{label}</h2>}
-      </MenuItem>
+      />
     ));
 
     return (
       <div className="qsm-menu-section">
+        <h2 className="qsm-menu-section-label">{label}</h2>
         <ul>{menuItems}</ul>
       </div>
     );
