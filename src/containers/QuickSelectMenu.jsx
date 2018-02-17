@@ -136,7 +136,7 @@ class QuickSelectMenu extends Component {
       prefix => prefix !== '' && prefix === value.slice(0, prefix.length)
     );
 
-    const prefixFilteredMenuSections = prefix ? sectionsByPrefix[prefix] : menuSections;
+    const prefixFilteredMenuSections = prefix ? sectionsByPrefix[prefix] : sectionsByPrefix[''];
 
     const options = {
       shouldSort: true,
