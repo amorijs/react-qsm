@@ -84,6 +84,7 @@ class QuickSelectMenu extends Component {
     if (!Array.isArray(sections)) {
       throw new TypeError(`Invalid argument 'sections'. Must be of type array`);
     }
+
     this.setState({
       filteredSections: sections,
       filteredItemsList: this.createFilteredItemsList(sections),
