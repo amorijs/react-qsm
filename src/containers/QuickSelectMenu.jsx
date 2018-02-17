@@ -86,7 +86,8 @@ class QuickSelectMenu extends Component {
     }
     this.setState({
       filteredSections: sections,
-      filteredItemsList: this.createFilteredItemsList(sections)
+      filteredItemsList: this.createFilteredItemsList(sections),
+      activeItemIndex: 0
     });
   };
 
@@ -114,7 +115,6 @@ class QuickSelectMenu extends Component {
       await this.setActiveItemByIndex(index).catch(console.error);
     }
 
-    const { filteredItemsList, activeItemIndex } = this.state;
     this.props.onMenuItemSelect(filteredItemsList[activeItemIndex]);
   };
 
