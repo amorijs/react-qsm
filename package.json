@@ -2,7 +2,10 @@
   "name": "react-quick-select-menu",
   "version": "1.0.0",
   "description": "Quick-select menu component.",
-  "main": "index.js",
+  "main": "build/index.js",
+  "repository": {
+    "url": "https://github.com/amorijs/react-quick-select-menu"
+  },
   "author": {
     "name": "amorijs",
     "email": "chris.amori93@gmail.com"
@@ -11,7 +14,11 @@
   "scripts": {
     "start": "webpack && live-server public",
     "start-dev": "webpack-dev-server",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "react": "^16.2.0"
   },
   "dependencies": {
     "add": "^2.0.6",

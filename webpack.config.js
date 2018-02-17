@@ -1,24 +1,27 @@
 const path = require('path');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/demo.js'],
+  entry: ['babel-polyfill', './src/containers/QuickSelectMenu.jsx'],
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'build'),
+    filename: 'index.js',
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
       {
-        loader: 'babel-loader',
-        test: /\.js$|\.jsx$/,
-        exclude: /node_modules/
-      },
-      {
-        test: /.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.js|\.jsx/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /(node_modules|build)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env'],
+            plugins: ['transform-class-properties', 'transform-object-rest-spread']
+          }
+        }
       }
     ]
   },
-  devtool: 'cheap-module-eval-source-map',
-  devServer: { contentBase: path.join(__dirname, 'public') }
+  externals: { react: 'commonjs react' }
 };

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MenuItem from '../components/MenuItem.jsx';
 import Fuse from 'fuse.js';
+
 import MenuSection from '../components/MenuSection.jsx';
-import '../react-qsm.scss';
+import MenuItem from '../components/MenuItem.jsx';
 
 const KEYS = {
   UP: 'ArrowUp',
@@ -63,10 +63,14 @@ class QuickSelectMenu extends Component {
 
   handleKeyDown = event => {
     const { key } = event;
-    const { UP, DOWN, LEFT, RIGHT, ENTER } = KEYS;
+    const { UP, DOWN, ENTER } = KEYS;
 
-    if (key === UP) this.moveUp();
-    if (key === DOWN) this.moveDown();
+    if (key !== UP && key !== DOWN && key !== ENTER) return;
+
+    console.log(key);
+    event.preventDefault();
+    if (key === UP) this.moveUp(event);
+    if (key === DOWN) this.moveDown(event);
     if (key === ENTER) this.selectItemByIndex(this.state.activeItemIndex);
   };
 

@@ -1,0 +1,70 @@
+@import url("http://fonts.googleapis.com/css?family=Droid+Sans");
+
+.react-qsm * {
+  font-family: 'Droid Sans', Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.react-qsm {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  background-color: #202032;
+  border-color: #29273f;
+  border-radius: 2.5px;
+  padding: 5px;
+}
+
+.react-qsm .qsm-input {
+  background-color: #655e5e;
+  border-color: #d8d8d8;
+  color: #eaeaea;
+  border: 1.3px solid #7d7d7d;
+  border-radius: 1.5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.react-qsm .qsm-input :focus {
+  outline: none;
+}
+
+.react-qsm .qsm-menu-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 3px 0;
+  border-bottom: 1px solid #615a5a;
+}
+
+.react-qsm .qsm-menu-section .qsm-menu-section-label {
+  position: absolute;
+  right: 0;
+  padding: 2px 5px;
+  font-size: 14px;
+  font-weight: lighter;
+  color: #d3d3d38f;
+  opacity: 0.9;
+}
+
+.react-qsm .qsm-menu-section:last-child {
+  border: none;
+}
+
+.react-qsm .qsm-menu-item {
+  padding: 5px;
+  display: flex;
+  justify-content: flex-start;
+  background-color: #202032;
+  color: #ddd;
+}
+
+.react-qsm .qsm-menu-item:hover {
+  background-color: #3a3838;
+}
+
+.react-qsm .qsm-menu-item:active, .react-qsm .qsm-menu-item.active {
+  background-color: #655e5e;
+  color: #eaeaea;
+}
