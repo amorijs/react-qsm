@@ -4,7 +4,6 @@ import QuickSelectMenu from './containers/QuickSelectMenu.jsx';
 
 const sections = [
   {
-    prefix: '',
     label: 'recently opened',
     items: [{ label: 'demo.js' }, { label: 'index.html' }]
   },
@@ -25,7 +24,7 @@ const sections = [
   }
 ];
 
-const onMenuItemSelect = item => alert(item.label);
+const onMenuItemSelect = item => console.log(item);
 
 ReactDOM.render(
   <QuickSelectMenu defaultValue=">" onMenuItemSelect={onMenuItemSelect} menuSections={sections} />,

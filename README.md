@@ -1,2 +1,65 @@
 # react-quick-select-menu
-Plug and play quick select menu component for React. Inspired by the VS Code command palette.
+
+Light-weight quick-select dropdown with fuzzy search. Inspired by Visual Studio Codes' command palette.
+
+![react-quick-select-menu demo](./assets/sample.gif)
+
+## Usage
+
+The code below creates the demo you see above.
+
+```javascript
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import QuickSelectMenu from 'react-quick-select-menu';
+
+const sections = [
+  {
+    label: 'recently opened',
+    items: [{ label: 'demo.js' }, { label: 'index.html' }]
+  },
+  {
+    prefix: '>',
+    label: 'recently used',
+    items: [{ label: 'Preferences: Open User Settings' }, { label: 'Sync: Upload Settings' }]
+  },
+  {
+    prefix: '>',
+    label: 'other commands',
+    items: [{ label: 'Add Cursor Above' }, { label: 'Add Cursor Below' }]
+  },
+  {
+    prefix: '?',
+    label: 'help',
+    items: [{ label: '... Go to file' }, { label: '# Go to symbol in workspace' }]
+  }
+];
+
+const onMenuItemSelect = item => console.log(item);
+
+ReactDOM.render(
+  <QuickSelectMenu defaultValue=">" onMenuItemSelect={onMenuItemSelect} menuSections={sections} />,
+  document.getElementById('root')
+);
+```
+
+## Installation
+
+`yarn add react-quick-select-menu` or `npm install --save react-quick-select-menu`
+
+## Props
+
+### react-quick-select-menu props
+
+| Prop             | Type                 | Required | Description                                                                                                      |
+| :--------------- | :------------------- | :------: | :--------------------------------------------------------------------------------------------------------------- |
+| menuSections     | _array[menuSection]_ | &#x2713; | Array of menuSections. These contain all of the data for the menuItems as well                                   |
+| onMenuItemSelect | _function_           |          | Callback to fire when a menu item is selected. A menuItem will be passed into this callback as the only argument |
+
+### menuSection Properties
+
+| Prop   | Type            | Required | Description                                                                                                                                                                                                                                                                                                                         |
+| :----- | :-------------- | :------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| items  | _array[object]_ | &#x2713; | Array of item objects, which will be passed to `onMenuItemSelect` when selected. The only required property in these objects is `label`, but you can put whatever you want in here (ie `id`).                                                                                                                                       |
+| label  | _string_        |          | A label to display for your section                                                                                                                                                                                                                                                                                                 |
+| prefix | _string_        |          | A prefix to match at the beginning of the input field in order to display this section. If a prefix for a section is provided, the input box **must** match the prefix to display this section. If a prefix is provided for _any_ section, sections without a prefix will not match when the input box matches the provided prefix. |
