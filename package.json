@@ -1,7 +1,8 @@
 {
   "name": "react-quick-select-menu",
   "version": "1.0.3",
-  "description": "Light-weight quick-select dropdown with fuzzy search. Inspired by Visual Studio Codes' command palette.",
+  "description":
+    "Light-weight quick-select dropdown with fuzzy search. Inspired by Visual Studio Codes' command palette.",
   "main": "build/index.js",
   "repository": {
     "url": "https://github.com/amorijs/react-quick-select-menu"
@@ -22,10 +23,7 @@
   },
   "dependencies": {
     "fuse.js": "^3.2.0",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "webpack": "^3.10.0"
+    "prop-types": "^15.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -42,6 +40,7 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "webpack-dev-server": "^2.11.0",
-    "yarn": "^1.3.2"
+    "yarn": "^1.3.2",
+    "webpack": "^3.10.0"
   }
 }
