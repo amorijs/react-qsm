@@ -1,6 +1,6 @@
 # react-quick-select-menu
 
-Light-weight quick-select dropdown with fuzzy search. Inspired by Visual Studio Codes' command palette.
+Light-weight quick-select dropdown with fuzzy search. Inspired by the [vscode command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
 
 ![react-quick-select-menu demo](./assets/sample.gif)
 
@@ -12,6 +12,7 @@ The code below creates the demo you see above.
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import QuickSelectMenu from 'react-quick-select-menu';
+import './react-qsm.css';
 
 const sections = [
   {
@@ -63,3 +64,12 @@ ReactDOM.render(
 | items  | _array[object]_ | &#x2713; | Array of item objects, which will be passed to `onMenuItemSelect` when selected. The only required property in these objects is `label`, but you can put whatever you want in here (ie `id`).                                                                                                                                       |
 | label  | _string_        |          | A label to display for your section                                                                                                                                                                                                                                                                                                 |
 | prefix | _string_        |          | A prefix to match at the beginning of the input field in order to display this section. If a prefix for a section is provided, the input box **must** match the prefix to display this section. If a prefix is provided for _any_ section, sections without a prefix will not match when the input box matches the provided prefix. |
+
+## Styling
+
+* There is a minimal and clean stylesheet to get you on your feet quickly located at react-quick-select-menu/src/react-qsm.css.
+* If you have questions on ways to import a stylesheet, consult the documentation of your build system.
+
+## Future plans
+
+* Ability to add components to both the left and right side of a menu item. This would allow things like icons to be displayed next to a label.

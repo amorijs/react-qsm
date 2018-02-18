@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import QuickSelectMenu from './containers/QuickSelectMenu.jsx';
+import './react-qsm.css';
 
 const sections = [
   {
