@@ -9598,7 +9598,13 @@ var QuickSelectMenu = function (_Component) {
           activeItemIndex = _state.activeItemIndex;
       var _props = this.props,
           onMenuItemSelect = _props.onMenuItemSelect,
-          defaultValue = _props.defaultValue;
+          defaultValue = _props.defaultValue,
+          className = _props.className,
+          inputClassName = _props.inputClassName,
+          menuSectionWrapperClassName = _props.menuSectionWrapperClassName,
+          menuSectionClassName = _props.menuSectionClassName,
+          menuSectionLabelClassName = _props.menuSectionLabelClassName,
+          menuItemClassName = _props.menuItemClassName;
 
 
       var itemsCounted = 0;
@@ -9623,22 +9629,25 @@ var QuickSelectMenu = function (_Component) {
           activeIndex: activeIndex,
           items: section.items,
           label: section.label,
-          handleItemClick: _this2.selectItem
+          handleItemClick: _this2.selectItem,
+          menuSectionClassName: menuSectionClassName,
+          menuSectionLabelClassName: menuSectionLabelClassName,
+          menuItemClassName: menuItemClassName
         });
       });
 
       return _react2.default.createElement(
         'div',
-        { className: 'react-qsm' },
+        { className: className },
         _react2.default.createElement('input', {
           defaultValue: defaultValue,
           onChange: this.handleInputChange,
           onKeyDown: this.handleKeyDown,
-          className: 'qsm-input'
+          className: inputClassName
         }),
         _react2.default.createElement(
           'div',
-          { className: 'qsm-menu-sections-wrapper' },
+          { className: menuSectionWrapperClassName },
           sections
         )
       );
@@ -9651,10 +9660,22 @@ var QuickSelectMenu = function (_Component) {
 QuickSelectMenu.propTypes = {
   menuSections: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
   onMenuItemSelect: _propTypes2.default.func.isRequired,
-  defaultValue: _propTypes2.default.string
+  defaultValue: _propTypes2.default.string,
+  className: _propTypes2.default.string,
+  inputClassName: _propTypes2.default.string,
+  menuSectionWrapperClassName: _propTypes2.default.string,
+  menuSectionClassName: _propTypes2.default.string,
+  menuSectionLabelClassName: _propTypes2.default.string,
+  menuItemClassName: _propTypes2.default.string
 };
 QuickSelectMenu.defaultProps = {
-  defaultValue: ''
+  defaultValue: '',
+  className: 'react-qsm',
+  inputClassName: 'qsm-input',
+  menuSectionWrapperClassName: 'qsm-menu-sections-wrapper',
+  menuSectionClassName: 'qsm-menu-section',
+  menuSectionLabelClassName: 'qsm-menu-section-label',
+  menuItemClassName: 'qsm-menu-item'
 };
 
 var _initialiseProps = function _initialiseProps() {
@@ -11691,8 +11712,13 @@ var MenuSection = function (_Component) {
           items = _props.items,
           activeIndex = _props.activeIndex,
           label = _props.label,
-          handleItemClick = _props.handleItemClick;
+          handleItemClick = _props.handleItemClick,
+          menuSectionClassName = _props.menuSectionClassName,
+          menuSectionLabelClassName = _props.menuSectionLabelClassName,
+          menuItemClassName = _props.menuItemClassName;
 
+
+      var className = this.props;
 
       var menuItems = items.map(function (item, i) {
         return _react2.default.createElement(_MenuItem2.default, {
@@ -11700,17 +11726,17 @@ var MenuSection = function (_Component) {
             return handleItemClick(item);
           },
           key: item.label,
-          className: i === activeIndex ? 'active' : null,
+          className: menuItemClassName + i === activeIndex ? ' active' : '',
           label: item.label
         });
       });
 
       return _react2.default.createElement(
         'div',
-        { className: 'qsm-menu-section' },
+        { className: menuSectionClassName },
         _react2.default.createElement(
           'h2',
-          { className: 'qsm-menu-section-label' },
+          { className: menuSectionLabelClassName },
           label
         ),
         _react2.default.createElement(
@@ -11728,7 +11754,10 @@ var MenuSection = function (_Component) {
 MenuSection.propTypes = {
   name: _propTypes2.default.string,
   items: _propTypes2.default.arrayOf(_propTypes2.default.object),
-  activeIndex: _propTypes2.default.number
+  activeIndex: _propTypes2.default.number,
+  menuSectionClassName: _propTypes2.default.string,
+  menuSectionLabelClassName: _propTypes2.default.string,
+  menuItemClassName: _propTypes2.default.string
 };
 exports.default = MenuSection;
 

@@ -6,24 +6,37 @@ class MenuSection extends Component {
   static propTypes = {
     name: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object),
-    activeIndex: PropTypes.number
+    activeIndex: PropTypes.number,
+    menuSectionClassName: PropTypes.string,
+    menuSectionLabelClassName: PropTypes.string,
+    menuItemClassName: PropTypes.string
   };
 
   render() {
-    const { items, activeIndex, label, handleItemClick } = this.props;
+    const {
+      items,
+      activeIndex,
+      label,
+      handleItemClick,
+      menuSectionClassName,
+      menuSectionLabelClassName,
+      menuItemClassName
+    } = this.props;
+    
+    const className = this.props;
 
     const menuItems = items.map((item, i) => (
       <MenuItem
         onClick={() => handleItemClick(item)}
         key={item.label}
-        className={i === activeIndex ? 'active' : null}
+        className={menuItemClassName + i === activeIndex ? ' active' : ''}
         label={item.label}
       />
     ));
 
     return (
-      <div className="qsm-menu-section">
-        <h2 className="qsm-menu-section-label">{label}</h2>
+      <div className={menuSectionClassName}>
+        <h2 className={menuSectionLabelClassName}>{label}</h2>
         <ul>{menuItems}</ul>
       </div>
     );

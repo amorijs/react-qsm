@@ -15,11 +15,23 @@ class QuickSelectMenu extends Component {
   static propTypes = {
     menuSections: PropTypes.arrayOf(PropTypes.object).isRequired,
     onMenuItemSelect: PropTypes.func.isRequired,
-    defaultValue: PropTypes.string
+    defaultValue: PropTypes.string,
+    className: PropTypes.string,
+    inputClassName: PropTypes.string,
+    menuSectionWrapperClassName: PropTypes.string,
+    menuSectionClassName: PropTypes.string,
+    menuSectionLabelClassName: PropTypes.string,
+    menuItemClassName: PropTypes.string
   };
 
   static defaultProps = {
-    defaultValue: ''
+    defaultValue: '',
+    className: 'react-qsm',
+    inputClassName: 'qsm-input',
+    menuSectionWrapperClassName: 'qsm-menu-sections-wrapper',
+    menuSectionClassName: 'qsm-menu-section',
+    menuSectionLabelClassName: 'qsm-menu-section-label',
+    menuItemClassName: 'qsm-menu-item'
   };
 
   constructor(props) {
@@ -188,7 +200,17 @@ class QuickSelectMenu extends Component {
 
   render() {
     const { filteredSections, activeItemIndex } = this.state;
-    const { onMenuItemSelect, defaultValue } = this.props;
+    
+    const {
+      onMenuItemSelect,
+      defaultValue,
+      className,
+      inputClassName,
+      menuSectionWrapperClassName,
+      menuSectionClassName,
+      menuSectionLabelClassName,
+      menuItemClassName
+    } = this.props;
 
     let itemsCounted = 0;
     let activeSectionIndex = 0;
@@ -213,19 +235,22 @@ class QuickSelectMenu extends Component {
           items={section.items}
           label={section.label}
           handleItemClick={this.selectItem}
+          menuSectionClassName={menuSectionClassName}
+          menuSectionLabelClassName={menuSectionLabelClassName}
+          menuItemClassName={menuItemClassName}
         />
       );
     });
 
     return (
-      <div className="react-qsm">
+      <div className={className}>
         <input
           defaultValue={defaultValue}
           onChange={this.handleInputChange}
           onKeyDown={this.handleKeyDown}
-          className="qsm-input"
+          className={inputClassName}
         />
-        <div className="qsm-menu-sections-wrapper">{sections}</div>
+        <div className={menuSectionWrapperClassName}>{sections}</div>
       </div>
     );
   }
