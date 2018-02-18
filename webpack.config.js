@@ -11,13 +11,7 @@ if (process.env.NODE_ENV === 'development') {
       rules: [
         {
           test: /\.js$|\.jsx$/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env'],
-              plugins: ['transform-class-properties', 'transform-object-rest-spread']
-            }
-          },
+          loader: 'babel-loader',
           exclude: /(build|node_modules)/
         },
         {
@@ -45,13 +39,7 @@ if (process.env.NODE_ENV === 'development') {
           test: /\.js|\.jsx/,
           include: path.resolve(__dirname, 'src'),
           exclude: /(node_modules|build)/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env'],
-              plugins: ['transform-class-properties', 'transform-object-rest-spread']
-            }
-          }
+          loader: 'babel-loader'
         }
       ]
     },
