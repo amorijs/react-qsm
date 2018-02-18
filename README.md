@@ -52,17 +52,18 @@ ReactDOM.render(
 
 ### react-quick-select-menu props
 
-| Prop             | Type                 | Required | Description                                                                                                      |
-| :--------------- | :------------------- | :------: | :--------------------------------------------------------------------------------------------------------------- |
-| menuSections     | _array[menuSection]_ | &#x2713; | Array of menuSections. These contain all of the data for the menuItems as well                                   |
-| onMenuItemSelect | _function_           |          | Callback to fire when a menu item is selected. A menuItem will be passed into this callback as the only argument |
+| Prop             | Type                 | Required | Description                                                                                                       |
+| :--------------- | :------------------- | :------: | :---------------------------------------------------------------------------------------------------------------- |
+| menuSections     | _array[menuSection]_ | &#x2713; | Array of menuSections. These contain all of the data for the menuItems as well.                                   |
+| onMenuItemSelect | _function_           |          | Callback to fire when a menu item is selected. A menuItem will be passed into this callback as the only argument. |
+| defaultValue     | _string_             |          | Initial text value of the input. If provided, this would likely be a section prefix.                              |
 
 ### menuSection Properties
 
 | Prop   | Type            | Required | Description                                                                                                                                                                                                                                                                                                                         |
 | :----- | :-------------- | :------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | items  | _array[object]_ | &#x2713; | Array of item objects, which will be passed to `onMenuItemSelect` when selected. The only required property in these objects is `label`, but you can put whatever you want in here (ie `id`).                                                                                                                                       |
-| label  | _string_        |          | A label to display for your section                                                                                                                                                                                                                                                                                                 |
+| label  | _string_        |          | A label to display for your section.                                                                                                                                                                                                                                                                                                |
 | prefix | _string_        |          | A prefix to match at the beginning of the input field in order to display this section. If a prefix for a section is provided, the input box **must** match the prefix to display this section. If a prefix is provided for _any_ section, sections without a prefix will not match when the input box matches the provided prefix. |
 
 ## Styling
