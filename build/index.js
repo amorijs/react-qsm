@@ -9694,7 +9694,6 @@ var _initialiseProps = function _initialiseProps() {
 
     if (key !== UP && key !== DOWN && key !== ENTER) return;
 
-    console.log(key);
     event.preventDefault();
     if (key === UP) _this3.moveUp(event);
     if (key === DOWN) _this3.moveDown(event);
