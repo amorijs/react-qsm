@@ -1,8 +1,8 @@
-# react-quick-select-menu
+# React Quick-Select Menu
 
-Light-weight quick-select drop-down with fuzzy search. Inspired by the [vs-code command palette.](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)
+Light-weight quick-select menu with fuzzy search. Inspired by the [vs-code command palette.](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)
 
-![react-quick-select-menu demo](./assets/sample.gif)
+![react-qsm demo](./assets/sample.gif)
 
 ## Usage
 
@@ -11,7 +11,7 @@ The code below creates the demo you see above.
 ```javascript
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import QuickSelectMenu from 'react-quick-select-menu';
+import QuickSelectMenu from 'react-qsm';
 import './react-qsm.css';
 
 const sections = [
@@ -46,11 +46,9 @@ ReactDOM.render(
 
 ## Installation
 
-`yarn add react-quick-select-menu` or `npm install --save react-quick-select-menu`
+`yarn add react-qsm` or `npm install --save react-qsm`
 
 ## Props
-
-### react-quick-select-menu Props
 
 | Prop             | Type                 | Required | Description                                                                                                       |
 | :--------------- | :------------------- | :------: | :---------------------------------------------------------------------------------------------------------------- |
@@ -68,7 +66,7 @@ ReactDOM.render(
 
 ## Styling
 
-* There is a minimal and clean stylesheet to get you on your feet quickly located at react-quick-select-menu/src/react-qsm.css.
+* There is a minimal and clean stylesheet to get you on your feet quickly located at react-qsm/src/react-qsm.css.
 * If you have questions on ways to import a stylesheet, consult the documentation of your build system.
 
 ## Future Plans
