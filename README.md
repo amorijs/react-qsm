@@ -64,12 +64,12 @@ ReactDOM.render(
 | menuSections                | _array[menuSection]_ | &#x2713; |                             | Array of menuSections. These contain all of the data for the menuItems as well.                                   |
 | onMenuItemSelect            | _function_           | &#x2713; |                             | Callback to fire when a menu item is selected. A menuItem will be passed into this callback as the only argument. |
 | defaultValue                | _string_             |          |             ''              | Initial text value of the input. If provided, this would likely be a section prefix.                              |
-| className                   | _string_             |          |         'react-qsm'         | Class name for the Quick Select Menu wrapper (div)                                                                |
-| inputClassName              | _string_             |          |         'qsm-input'         | Class name for the Quick Select Menu input (input)                                                                |
-| menuSectionWrapperClassName | _string_             |          | 'qsm-menu-sections-wrapper' | Class name for the Quick Select Menu section wrapper (div)                                                        |
-| menuSectionClassName        | _string_             |          |     'qsm-menu-section'      | Class name for the Quick Select Menu section (div)                                                                |
-| menuSectionLabelClassName   | _string_             |          |  'qsm-menu-section-label'   | Class name for the Quick Select Menu label (h2)                                                                   |
-| menuItemClassName           | _string_             |          |       'qsm-menu-item        | Class name for the Quick Select Menu item (li)                                                                    |
+| className                   | _string_             |          |         'react-qsm'         | Class name for the menu wrapper (div)                                                                |
+| inputClassName              | _string_             |          |         'qsm-input'         | Class name for the menu input (input)                                                                |
+| menuSectionWrapperClassName | _string_             |          | 'qsm-menu-sections-wrapper' | Class name for the menu sections wrapper (div)                                                        |
+| menuSectionClassName        | _string_             |          |     'qsm-menu-section'      | Class name for a menu section (div)                                                                |
+| menuSectionLabelClassName   | _string_             |          |  'qsm-menu-section-label'   | Class name for a menu label (h2)                                                                   |
+| menuItemClassName           | _string_             |          |       'qsm-menu-item        | Class name for a menu item (li)                                                                    |
 
 ### menuSection Properties
 
