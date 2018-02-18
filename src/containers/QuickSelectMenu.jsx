@@ -67,7 +67,6 @@ class QuickSelectMenu extends Component {
 
     if (key !== UP && key !== DOWN && key !== ENTER) return;
 
-    console.log(key);
     event.preventDefault();
     if (key === UP) this.moveUp(event);
     if (key === DOWN) this.moveDown(event);
