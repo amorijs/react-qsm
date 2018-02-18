@@ -9629,7 +9629,7 @@ var QuickSelectMenu = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { onClick: this.click, className: 'react-qsm' },
+        { className: 'react-qsm' },
         _react2.default.createElement('input', {
           defaultValue: defaultValue,
           onChange: this.handleInputChange,
