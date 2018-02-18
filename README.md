@@ -4,6 +4,15 @@ Light-weight quick-select menu with fuzzy search. Inspired by the [vs-code comma
 
 ![react-qsm demo](./assets/sample.gif)
 
+## Table of Contents
+
+- [Usage](#usage)
+- [Installation](#installation)
+- [Props](#props)
+  - [menuSection Properties](#menusection-properties)
+- [Styling](#styling)
+- [Future Plans](#future-plans)
+
 ## Usage
 
 The code below creates the demo you see above.
