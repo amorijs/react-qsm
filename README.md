@@ -1,6 +1,6 @@
 # react-quick-select-menu
 
-Light-weight quick-select dropdown with fuzzy search. Inspired by the [vscode command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
+Light-weight quick-select drop-down with fuzzy search. Inspired by the [vs-code command palette.](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)
 
 ![react-quick-select-menu demo](./assets/sample.gif)
 
