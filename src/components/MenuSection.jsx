@@ -22,8 +22,6 @@ class MenuSection extends Component {
       menuSectionLabelClassName,
       menuItemClassName
     } = this.props;
-    
-    const className = this.props;
 
     const menuItems = items.map((item, i) => (
       <MenuItem

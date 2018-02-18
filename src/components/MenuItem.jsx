@@ -7,7 +7,7 @@ class MenuItem extends Component {
   render() {
     const { className, label, children, onClick } = this.props;
     return (
-      <li onClick={onClick} className={`qsm-menu-item ${className}`}>
+      <li onClick={onClick} className={`${className}`}>
         {label}
         {children}
       </li>
