@@ -50,7 +50,7 @@ ReactDOM.render(
 
 ## Props
 
-### react-quick-select-menu props
+### react-quick-select-menu Props
 
 | Prop             | Type                 | Required | Description                                                                                                       |
 | :--------------- | :------------------- | :------: | :---------------------------------------------------------------------------------------------------------------- |
@@ -71,6 +71,6 @@ ReactDOM.render(
 * There is a minimal and clean stylesheet to get you on your feet quickly located at react-quick-select-menu/src/react-qsm.css.
 * If you have questions on ways to import a stylesheet, consult the documentation of your build system.
 
-## Future plans
+## Future Plans
 
 * Ability to add components to both the left and right side of a menu item. This would allow things like icons to be displayed next to a label.
