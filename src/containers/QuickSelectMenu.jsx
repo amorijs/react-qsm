@@ -218,7 +218,7 @@ class QuickSelectMenu extends Component {
     });
 
     return (
-      <div onClick={this.click} className="react-qsm">
+      <div className="react-qsm">
         <input
           defaultValue={defaultValue}
           onChange={this.handleInputChange}
