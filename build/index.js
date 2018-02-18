@@ -4175,9 +4175,10 @@ var MenuItem = function (_Component) {
           children = _props.children,
           onClick = _props.onClick;
 
+
       return _react2.default.createElement(
         'li',
-        { onClick: onClick, className: 'qsm-menu-item ' + className },
+        { onClick: onClick, className: className },
         label,
         children
       );
@@ -11718,15 +11719,13 @@ var MenuSection = function (_Component) {
           menuItemClassName = _props.menuItemClassName;
 
 
-      var className = this.props;
-
       var menuItems = items.map(function (item, i) {
         return _react2.default.createElement(_MenuItem2.default, {
           onClick: function onClick() {
             return handleItemClick(item);
           },
           key: item.label,
-          className: menuItemClassName + i === activeIndex ? ' active' : '',
+          className: menuItemClassName + (i === activeIndex ? ' active' : ''),
           label: item.label
         });
       });
