@@ -6,8 +6,9 @@ class MenuItem extends Component {
 
   render() {
     const { className, label, children, onClick } = this.props;
+
     return (
-      <li onClick={onClick} className={`${className}`}>
+      <li onClick={onClick} className={className}>
         {label}
         {children}
       </li>

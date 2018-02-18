@@ -27,7 +27,7 @@ class MenuSection extends Component {
       <MenuItem
         onClick={() => handleItemClick(item)}
         key={item.label}
-        className={menuItemClassName + i === activeIndex ? ' active' : ''}
+        className={menuItemClassName + (i === activeIndex ? ' active' : '')}
         label={item.label}
       />
     ));
