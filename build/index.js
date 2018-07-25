@@ -9440,6 +9440,13 @@ var QuickSelectMenu = function (_Component) {
       this.filterSections(this.props.defaultValue);
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      var value = this.props.value;
+
+      if (this.props.value !== prevProps.value) this.filterSections(value);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -9515,6 +9522,7 @@ QuickSelectMenu.propTypes = {
   onMenuItemSelect: _propTypes2.default.func.isRequired,
   onMenItemFocus: _propTypes2.default.func,
   defaultValue: _propTypes2.default.string,
+  value: _propTypes2.default.string,
   maxItemsToDisplay: _propTypes2.default.number,
   renderInput: _propTypes2.default.func,
   className: _propTypes2.default.string,

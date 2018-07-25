@@ -17,6 +17,7 @@ class QuickSelectMenu extends Component {
     onMenuItemSelect: PropTypes.func.isRequired,
     onMenItemFocus: PropTypes.func,
     defaultValue: PropTypes.string,
+    value: PropTypes.string,
     maxItemsToDisplay: PropTypes.number,
     renderInput: PropTypes.func,
     className: PropTypes.string,
@@ -55,6 +56,11 @@ class QuickSelectMenu extends Component {
 
   componentDidMount() {
     this.filterSections(this.props.defaultValue);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { value } = this.props;
+    if (this.props.value !== prevProps.value) this.filterSections(value);
   }
 
   createFilteredItemsList = sections =>
