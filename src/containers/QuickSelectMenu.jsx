@@ -18,6 +18,7 @@ class QuickSelectMenu extends Component {
     onMenItemFocus: PropTypes.func,
     defaultValue: PropTypes.string,
     maxItemsToDisplay: PropTypes.number,
+    renderInput: PropTypes.func,
     className: PropTypes.string,
     inputClassName: PropTypes.string,
     menuSectionWrapperClassName: PropTypes.string,
@@ -229,8 +230,8 @@ class QuickSelectMenu extends Component {
     const { filteredSections, activeItemIndex } = this.state;
 
     const {
-      onMenuItemSelect,
       defaultValue,
+      renderInput,
       className,
       inputClassName,
       menuSectionWrapperClassName,
@@ -269,14 +270,16 @@ class QuickSelectMenu extends Component {
       );
     });
 
+    const inputProps = {
+      defaultValue: defaultValue,
+      onChange: this.handleInputChange,
+      onKeyDown: this.handleKeyDown,
+      className: inputClassName
+    };
+
     return (
       <div className={className}>
-        <input
-          defaultValue={defaultValue}
-          onChange={this.handleInputChange}
-          onKeyDown={this.handleKeyDown}
-          className={inputClassName}
-        />
+        {renderInput ? renderInput(inputProps) : <input {...inputProps} />}
         <div className={menuSectionWrapperClassName}>{sections}</div>
       </div>
     );

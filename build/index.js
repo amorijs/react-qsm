@@ -9448,8 +9448,8 @@ var QuickSelectMenu = function (_Component) {
           filteredSections = _state.filteredSections,
           activeItemIndex = _state.activeItemIndex;
       var _props = this.props,
-          onMenuItemSelect = _props.onMenuItemSelect,
           defaultValue = _props.defaultValue,
+          renderInput = _props.renderInput,
           className = _props.className,
           inputClassName = _props.inputClassName,
           menuSectionWrapperClassName = _props.menuSectionWrapperClassName,
@@ -9487,15 +9487,17 @@ var QuickSelectMenu = function (_Component) {
         });
       });
 
+      var inputProps = {
+        defaultValue: defaultValue,
+        onChange: this.handleInputChange,
+        onKeyDown: this.handleKeyDown,
+        className: inputClassName
+      };
+
       return _react2.default.createElement(
         'div',
         { className: className },
-        _react2.default.createElement('input', {
-          defaultValue: defaultValue,
-          onChange: this.handleInputChange,
-          onKeyDown: this.handleKeyDown,
-          className: inputClassName
-        }),
+        renderInput ? renderInput(inputProps) : _react2.default.createElement('input', inputProps),
         _react2.default.createElement(
           'div',
           { className: menuSectionWrapperClassName },
@@ -9514,6 +9516,7 @@ QuickSelectMenu.propTypes = {
   onMenItemFocus: _propTypes2.default.func,
   defaultValue: _propTypes2.default.string,
   maxItemsToDisplay: _propTypes2.default.number,
+  renderInput: _propTypes2.default.func,
   className: _propTypes2.default.string,
   inputClassName: _propTypes2.default.string,
   menuSectionWrapperClassName: _propTypes2.default.string,
