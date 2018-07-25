@@ -114,16 +114,15 @@ class QuickSelectMenu extends Component {
   selectItem = item => this.selectItemByIndex(this.getItemIndex(item));
 
   setActiveItemByIndex = index => {
-    const { filteredItemsList } = this.state;
     const { onMenuItemFocus = () => null } = this.props;
 
-    if (index >= filteredItemsList.length) {
+    if (index >= this.state.filteredItemsList.length) {
       throw new Error(`Cannot set active item of index: ${index}. Index is too large`);
     }
 
     return new Promise(resolve =>
       this.setState({ activeItemIndex: index }, () => {
-        onMenuItemFocus(filteredItemsList[activeItemIndex]);
+        onMenuItemFocus(filteredItemsList[this.state.activeItemIndex]);
         resolve();
       })
     );
