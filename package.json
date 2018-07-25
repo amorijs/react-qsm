@@ -1,6 +1,6 @@
 {
   "name": "react-qsm",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Light-weight quick-select menu with fuzzy search. Inspired by the vs-code command palette.",
   "main": "build/index.js",
   "repository": {
