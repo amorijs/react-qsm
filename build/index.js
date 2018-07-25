@@ -9688,9 +9688,7 @@ var _initialiseProps = function _initialiseProps() {
       keys: ['label']
     };
 
-    var cappedSections = _this3.itemCapSections(prefixFilteredMenuSections);
-
-    var filteredSections = cappedSections.reduce(function (acc, section) {
+    var filteredSections = prefixFilteredMenuSections.reduce(function (acc, section) {
       var prefixTrimmedValue = prefix ? value.slice(prefix.length) : value;
 
       var items = section.items;
@@ -9704,7 +9702,8 @@ var _initialiseProps = function _initialiseProps() {
       return acc;
     }, []);
 
-    _this3.setFilteredSections(filteredSections);
+    var cappedSections = _this3.itemCapSections(filteredSections);
+    _this3.setFilteredSections(cappedSections);
   };
 
   this.itemCapSections = function (sections) {

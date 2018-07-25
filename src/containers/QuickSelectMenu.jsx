@@ -162,9 +162,7 @@ class QuickSelectMenu extends Component {
       keys: ['label']
     };
 
-    const cappedSections = this.itemCapSections(prefixFilteredMenuSections);
-
-    const filteredSections = cappedSections.reduce((acc, section) => {
+    const filteredSections = prefixFilteredMenuSections.reduce((acc, section) => {
       const prefixTrimmedValue = prefix ? value.slice(prefix.length) : value;
 
       let items = section.items;
@@ -178,7 +176,8 @@ class QuickSelectMenu extends Component {
       return acc;
     }, []);
 
-    this.setFilteredSections(filteredSections);
+    const cappedSections = this.itemCapSections(filteredSections);
+    this.setFilteredSections(cappedSections);
   };
 
   itemCapSections = sections => {
