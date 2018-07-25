@@ -122,7 +122,7 @@ class QuickSelectMenu extends Component {
 
     return new Promise(resolve =>
       this.setState({ activeItemIndex: index }, () => {
-        onMenuItemFocus(filteredItemsList[this.state.activeItemIndex]);
+        onMenuItemFocus(this.state.filteredItemsList[this.state.activeItemIndex]);
         resolve();
       })
     );

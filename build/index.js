@@ -9619,7 +9619,7 @@ var _initialiseProps = function _initialiseProps() {
 
     return new Promise(function (resolve) {
       return _this3.setState({ activeItemIndex: index }, function () {
-        onMenuItemFocus(filteredItemsList[_this3.state.activeItemIndex]);
+        onMenuItemFocus(_this3.state.filteredItemsList[_this3.state.activeItemIndex]);
         resolve();
       });
     });
