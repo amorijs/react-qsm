@@ -9511,6 +9511,7 @@ var QuickSelectMenu = function (_Component) {
 QuickSelectMenu.propTypes = {
   menuSections: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
   onMenuItemSelect: _propTypes2.default.func.isRequired,
+  onMenItemFocus: _propTypes2.default.func,
   defaultValue: _propTypes2.default.string,
   maxItemsToDisplay: _propTypes2.default.number,
   className: _propTypes2.default.string,
@@ -9606,20 +9607,19 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.setActiveItemByIndex = function (index) {
-    var filteredItemsList = _this3.state.filteredItemsList;
-    var _props$onItemFocus = _this3.props.onItemFocus,
-        onItemFocus = _props$onItemFocus === undefined ? function () {
+    var _props$onMenuItemFocu = _this3.props.onMenuItemFocus,
+        onMenuItemFocus = _props$onMenuItemFocu === undefined ? function () {
       return null;
-    } : _props$onItemFocus;
+    } : _props$onMenuItemFocu;
 
 
-    if (index >= filteredItemsList.length) {
+    if (index >= _this3.state.filteredItemsList.length) {
       throw new Error('Cannot set active item of index: ' + index + '. Index is too large');
     }
 
     return new Promise(function (resolve) {
       return _this3.setState({ activeItemIndex: index }, function () {
-        onItemFocus(filteredItemsList[activeItemIndex]);
+        onMenuItemFocus(filteredItemsList[_this3.state.activeItemIndex]);
         resolve();
       });
     });
@@ -9627,35 +9627,38 @@ var _initialiseProps = function _initialiseProps() {
 
   this.selectItemByIndex = function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(index) {
-      var _state2, filteredItemsList, activeItemIndex;
+      var _state2, filteredItemsList, activeItemIndex, _props$onMenuItemSele, onMenuItemSelect;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _state2 = _this3.state, filteredItemsList = _state2.filteredItemsList, activeItemIndex = _state2.activeItemIndex;
+              _props$onMenuItemSele = _this3.props.onMenuItemSelect, onMenuItemSelect = _props$onMenuItemSele === undefined ? function () {
+                return null;
+              } : _props$onMenuItemSele;
 
               if (!(index >= filteredItemsList.length)) {
-                _context.next = 3;
+                _context.next = 4;
                 break;
               }
 
               throw new Error('Cannot set active item of index: ' + index + '. Index is too large');
 
-            case 3:
+            case 4:
               if (!(index !== activeItemIndex)) {
-                _context.next = 6;
+                _context.next = 7;
                 break;
               }
 
-              _context.next = 6;
+              _context.next = 7;
               return _this3.setActiveItemByIndex(index).catch(console.error);
 
-            case 6:
-
-              _this3.props.onMenuItemSelect(filteredItemsList[activeItemIndex]);
-
             case 7:
+
+              onMenuItemSelect(filteredItemsList[activeItemIndex]);
+
+            case 8:
             case 'end':
               return _context.stop();
           }
