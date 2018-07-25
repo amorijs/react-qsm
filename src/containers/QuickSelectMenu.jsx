@@ -16,6 +16,7 @@ class QuickSelectMenu extends Component {
     menuSections: PropTypes.arrayOf(PropTypes.object).isRequired,
     onMenuItemSelect: PropTypes.func.isRequired,
     defaultValue: PropTypes.string,
+    maxItemsToDisplay: PropTypes.number,
     className: PropTypes.string,
     inputClassName: PropTypes.string,
     menuSectionWrapperClassName: PropTypes.string,
@@ -145,7 +146,8 @@ class QuickSelectMenu extends Component {
 
     if (value === '') {
       const filteredSections = sectionsByPrefix[''] ? sectionsByPrefix[''] : menuSections;
-      return this.setFilteredSections(filteredSections);
+      const cappedFilteredSections = this.itemCapSections(filteredSections);
+      return this.setFilteredSections(cappedFilteredSections);
     }
 
     const prefix = Object.keys(sectionsByPrefix).find(
@@ -160,7 +162,9 @@ class QuickSelectMenu extends Component {
       keys: ['label']
     };
 
-    const filteredSections = prefixFilteredMenuSections.reduce((acc, section) => {
+    const cappedSections = this.itemCapSections(prefixFilteredMenuSections);
+
+    const filteredSections = cappedSections.reduce((acc, section) => {
       const prefixTrimmedValue = prefix ? value.slice(prefix.length) : value;
 
       let items = section.items;
@@ -175,6 +179,23 @@ class QuickSelectMenu extends Component {
     }, []);
 
     this.setFilteredSections(filteredSections);
+  };
+
+  itemCapSections = sections => {
+    const { maxItemsToDisplay = Infinity } = this.props;
+
+    return sections.reduce(
+      ({ itemsEncountered, acc }, section) => {
+        const amountOfItemsThatCanBeAddedToMenu = maxItemsToDisplay - itemsEncountered;
+        if (amountOfItemsThatCanBeAddedToMenu <= 0) return { acc, itemsEncountered };
+
+        let items = section.items.slice(0, amountOfItemsThatCanBeAddedToMenu);
+
+        acc.push({ ...section, items });
+        return { acc, itemsEncountered: itemsEncountered + items.length };
+      },
+      { acc: [], itemsEncountered: 0 }
+    ).acc;
   };
 
   removeFilters = () => {
@@ -200,7 +221,7 @@ class QuickSelectMenu extends Component {
 
   render() {
     const { filteredSections, activeItemIndex } = this.state;
-    
+
     const {
       onMenuItemSelect,
       defaultValue,

@@ -28,6 +28,11 @@ const sections = [
 const onMenuItemSelect = item => console.log(item);
 
 ReactDOM.render(
-  <QuickSelectMenu defaultValue=">" onMenuItemSelect={onMenuItemSelect} menuSections={sections} />,
+  <QuickSelectMenu
+    defaultValue=">"
+    onMenuItemSelect={onMenuItemSelect}
+    menuSections={sections}
+    maxItemsToDisplay={4}
+  />,
   document.getElementById('root')
 );

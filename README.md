@@ -6,12 +6,12 @@ Light-weight quick-select menu with fuzzy search. Inspired by the [vs-code comma
 
 ## Table of Contents
 
-* [Usage](#usage)
-* [Installation](#installation)
-* [Props](#props)
-  * [menuSection Properties](#menusection-properties)
-* [Styling](#styling)
-* [Future Plans](#future-plans)
+- [Usage](#usage)
+- [Installation](#installation)
+- [Props](#props)
+  - [menuSection Properties](#menusection-properties)
+- [Styling](#styling)
+- [Future Plans](#future-plans)
 
 ## Usage
 
@@ -64,6 +64,7 @@ ReactDOM.render(
 | menuSections                | _array[menuSection]_ | &#x2713; |                             | Array of menuSections. These contain all of the data for the menuItems as well.                                   |
 | onMenuItemSelect            | _function_           | &#x2713; |                             | Callback to fire when a menu item is selected. A menuItem will be passed into this callback as the only argument. |
 | defaultValue                | _string_             |          |             ''              | Initial text value of the input. If provided, this would likely be a section prefix.                              |
+| maxItemsToDisplay           | _number_             |          |          Infinity           | Maximum number of items to display in the quick select menu at once   .                                            |
 | className                   | _string_             |          |         'react-qsm'         | Class name for the menu wrapper (div)                                                                             |
 | inputClassName              | _string_             |          |         'qsm-input'         | Class name for the menu input (input)                                                                             |
 | menuSectionWrapperClassName | _string_             |          | 'qsm-menu-sections-wrapper' | Class name for the menu sections wrapper (div)                                                                    |
@@ -81,9 +82,9 @@ ReactDOM.render(
 
 ## Styling
 
-* There is a minimal and clean stylesheet to get you on your feet quickly located at react-qsm/src/react-qsm.css.
-* If you have questions on ways to import a stylesheet, consult the documentation of your build system.
+- There is a minimal and clean stylesheet to get you on your feet quickly located at react-qsm/src/react-qsm.css.
+- If you have questions on ways to import a stylesheet, consult the documentation of your build system.
 
 ## Future Plans
 
-* Ability to add components to both the left and right side of a menu item. This would allow things like icons to be displayed next to a label.
+- Ability to add components to both the left and right side of a menu item. This would allow things like icons to be displayed next to a label.
