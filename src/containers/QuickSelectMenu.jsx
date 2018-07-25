@@ -15,6 +15,7 @@ class QuickSelectMenu extends Component {
   static propTypes = {
     menuSections: PropTypes.arrayOf(PropTypes.object).isRequired,
     onMenuItemSelect: PropTypes.func.isRequired,
+    onMenItemFocus: PropTypes.func,
     defaultValue: PropTypes.string,
     maxItemsToDisplay: PropTypes.number,
     className: PropTypes.string,
@@ -114,16 +115,23 @@ class QuickSelectMenu extends Component {
 
   setActiveItemByIndex = index => {
     const { filteredItemsList } = this.state;
+    const { onMenuItemFocus = () => null } = this.props;
 
     if (index >= filteredItemsList.length) {
       throw new Error(`Cannot set active item of index: ${index}. Index is too large`);
     }
 
-    return new Promise(resolve => this.setState({ activeItemIndex: index }, resolve));
+    return new Promise(resolve =>
+      this.setState({ activeItemIndex: index }, () => {
+        onMenuItemFocus(filteredItemsList[activeItemIndex]);
+        resolve();
+      })
+    );
   };
 
   selectItemByIndex = async index => {
     const { filteredItemsList, activeItemIndex } = this.state;
+    const { onMenuItemSelect = () => null } = this.props;
 
     if (index >= filteredItemsList.length) {
       throw new Error(`Cannot set active item of index: ${index}. Index is too large`);
@@ -133,7 +141,7 @@ class QuickSelectMenu extends Component {
       await this.setActiveItemByIndex(index).catch(console.error);
     }
 
-    this.props.onMenuItemSelect(filteredItemsList[activeItemIndex]);
+    onMenuItemSelect(filteredItemsList[activeItemIndex]);
   };
 
   filterSections = value => {

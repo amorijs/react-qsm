@@ -9607,6 +9607,10 @@ var _initialiseProps = function _initialiseProps() {
 
   this.setActiveItemByIndex = function (index) {
     var filteredItemsList = _this3.state.filteredItemsList;
+    var _props$onItemFocus = _this3.props.onItemFocus,
+        onItemFocus = _props$onItemFocus === undefined ? function () {
+      return null;
+    } : _props$onItemFocus;
 
 
     if (index >= filteredItemsList.length) {
@@ -9614,7 +9618,10 @@ var _initialiseProps = function _initialiseProps() {
     }
 
     return new Promise(function (resolve) {
-      return _this3.setState({ activeItemIndex: index }, resolve);
+      return _this3.setState({ activeItemIndex: index }, function () {
+        onItemFocus(filteredItemsList[activeItemIndex]);
+        resolve();
+      });
     });
   };
 
